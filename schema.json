@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "permission": {
+        "type": "string"
+      },
+      "size": {
+        "type": "number"
+      },
+      "modified_time": {
+        "type": "string"
+      },
+      "uid": {
+        "type": "number"
+      },
+      "gid": {
+        "type": "number"
+      }
+    },
+    "additionalProperties": false,
+    "required": ["name", "permission", "size", "modified_time"]
+  }
+}
