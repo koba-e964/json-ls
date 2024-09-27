@@ -1,0 +1,37 @@
+name: Rust
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTFLAGS: --deny warnings
+  RUSTDOCFLAGS: --deny warnings
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: cargo version
+      run: cargo --version
+    - name: Build
+      working-directory: rust
+      run: cargo build --verbose
+    - name: Run tests
+      working-directory: rust
+      run: cargo test --verbose --locked
+    - name: Run clippy
+      working-directory: rust
+      run: cargo clippy --all-targets --locked
+    - name: Check formatting
+      working-directory: rust
+      run: cargo fmt -- --check
+    - name: Document
+      working-directory: rust
+      run: cargo doc --verbose

@@ -17,8 +17,18 @@ jobs:
       with:
         go-version: '1.22'
     - name: Run json-ls
+      working-directory: go
       run: |
-        go run . . | jq | tee output.json
+        go run . . | jq | tee ../output.json
+    - name: Validate output of json-ls
+      uses: dsanders11/json-schema-validate-action@v1.2.0
+      with:
+        schema: schema.json
+        files: output.json
+    - name: Run json-ls (Rust)
+      working-directory: rust
+      run: |
+        cargo run . | jq | tee ../output.json
     - name: Validate output of json-ls
       uses: dsanders11/json-schema-validate-action@v1.2.0
       with:
